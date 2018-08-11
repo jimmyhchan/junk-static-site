@@ -1,9 +1,22 @@
 import * as React from 'react';
-import { Square } from './square';
+import { Square, SqOption } from './square';
 
-export class Board extends React.Component {
-  renderSquare(i:number) {
-    return <Square />;
+const initialBoardState = {
+  squares: Array(9).fill(null)
+}
+type BoardState = {
+  squares: SqOption[]
+}
+
+export class Board extends React.Component<object, BoardState> {
+  readonly state:BoardState = initialBoardState;
+  renderSquare(idx:number) {
+    return (
+      <Square 
+        value={this.state.squares[idx]}
+        onClick={() => this.handleClick(idx)}
+      />
+    );
 
   }
   render() {
@@ -28,6 +41,13 @@ export class Board extends React.Component {
         </div>
       </div>
     )
+  }
 
+  private handleClick = (idx: number) => {
+    const squares = this.state.squares.slice();
+    squares[idx] = 'X';
+    this.setState({
+      squares
+    });
   }
 }

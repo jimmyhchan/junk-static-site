@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-type SqOption = null | 'X' | 'O';
+export type SqOption = null | 'X' | 'O';
 
 const initialState = {
   value: null
@@ -12,9 +12,11 @@ type SqState = {
 }
 
 type SqProp = {
-  value: SqOption
+  value: SqOption,
+  onClick?: React.MouseEventHandler<HTMLElement>
 }
-export class Square extends React.Component <SqProp, SqState> {
+export class Square extends React.Component <SqProp, SqState
+> {
   readonly state:SqState = initialState;
   handleClick = () => this.setState({ value: 'X'});
   render() {
