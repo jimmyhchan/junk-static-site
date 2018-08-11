@@ -2,10 +2,16 @@ import * as React from 'react';
 import { Square, SqOption } from './square';
 
 const initialBoardState = {
-  squares: Array(9).fill(null)
+  squares: Array(9).fill(null),
+  xIsNext: true
 }
 type BoardState = {
-  squares: SqOption[]
+  squares: SqOption[],
+  xIsNext: boolean
+}
+
+const getMark = (isNext:boolean):SqOption => {
+  return isNext ? 'X' : 'O';
 }
 
 export class Board extends React.Component<object, BoardState> {
@@ -20,7 +26,7 @@ export class Board extends React.Component<object, BoardState> {
 
   }
   render() {
-    const status = 'Next player: X';
+    const status = 'Next player: ' + (getMark(this.state.xIsNext));
     return (
       <div>
         <div className="status">{status}</div>
@@ -45,9 +51,10 @@ export class Board extends React.Component<object, BoardState> {
 
   private handleClick = (idx: number) => {
     const squares = this.state.squares.slice();
-    squares[idx] = 'X';
+    squares[idx] = getMark(this.state.xIsNext);
     this.setState({
-      squares
+      squares,
+      xIsNext: !this.state.xIsNext
     });
   }
 }
