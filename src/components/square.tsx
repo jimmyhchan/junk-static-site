@@ -2,28 +2,15 @@ import * as React from 'react';
 
 export type SqOption = null | 'X' | 'O';
 
-const initialState = {
-  value: null
-}
-
-
-type SqState = {
-  value: SqOption
-}
-
 type SqProp = {
   value: SqOption,
   onClick?: React.MouseEventHandler<HTMLElement>
 }
-export class Square extends React.Component <SqProp, SqState
-> {
-  readonly state:SqState = initialState;
-  handleClick = () => this.setState({ value: 'X'});
-  render() {
-    return (
-      <button className="square" onClick={this.handleClick}>
-        {this.state.value}
-      </button>
-    )
-  }
-}
+
+export const Square: React.SFC<SqProp> = (props:SqProp) => {
+  return (
+    <button className="square" onClick={props.onClick}>
+      {props.value}
+    </button>
+  )
+}; 
